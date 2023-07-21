@@ -18,7 +18,7 @@ const UserLogin = () =>{
     const showModal = () => {
         setModal(!modal);
     }
-
+    
     const validate = () =>{
         if(userName == "" && password == ""){
             setError({userNameError:"*Username cannot be empty",
@@ -37,6 +37,7 @@ const UserLogin = () =>{
         }
 
     }
+   
     const submit = async (e) =>{
        validate();
        try{
@@ -63,9 +64,9 @@ return <>
         visibility={modal}
         hide={()=> setModal(false)}
     />
-    <section className="login-page">
-    <div className="admin">
-        <h2 className="mb-5">Login Here</h2>
+    <section className="login-page bg-dark" >
+    <div className="admin bg-light" >
+        <h2 className="mb-5 ">Login Here</h2>
         <div class="mb-3 w-100">
             <label htmlFor="exampleFormControlInput1" className="form-label">Username</label>
             <input type="text" className="form-control" id="username" placeholder="Enter your username" 
@@ -82,7 +83,7 @@ return <>
             <small className="error">{error.passwordError}</small>
         </div>
         <button className="register" onClick={showModal}>Click here to register</button>
-        <button type="button" className="btn btn-primary mt-3 w-100"
+        <button type="button" className="btn btn-dark mt-3 w-100 "
         onClick={submit}>Login</button>
     </div>
     </section>

@@ -10,10 +10,11 @@
     align-items: start;
     box-shadow: 10px 10px 10px rgba(2,2,2,0.4);
     height: auto;
-    background-color: rgba(rgb(232, 169, 169), rgb(146, 235, 146), rgb(136, 136, 142), 0.1);
-    top:8%;
-    left: 30%;
+    background-color: rgba(rgb(96, 90, 90), rgb(146, 235, 146), rgb(136, 136, 142), 0.1);
+    top:15%;
+    left: 35%;
 }
+
 h2{
     margin: auto;
 }
@@ -30,6 +31,6 @@ input{
     border: none;
     font-size: 13px;
     margin-left: 55%;
-    color: blue;
+    color: black;
     background-color: none;
 }

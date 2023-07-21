@@ -1,13 +1,33 @@
 import React, { useState } from "react";
 import './dashboard.css';
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import UsernameModal from "./Modals/UsernameModal";
+import PasswordModal from "./Modals/PasswordModal";
 
 const Dashboard = () =>{
     const location = useLocation();
     const{id} = location.state || {};
-    
 
+    const navigate = useNavigate();
+
+    const[usernameModal,setusernameModal] = useState(false);
+    const[passwordModal,setPasswordModal] = useState(false);
+
+    const toCloseUserNameModal = (username) =>{
+            setusernameModal(false);
+            console.log(username)
+            setUserData({...userData,username: username} )
+    }
+    
+    const toClosePasswordModal = ()=> {
+            setPasswordModal(false);
+    }
+    
+    const logout = () => {
+        navigate("/")
+
+    }
     const [userData,setUserData] = useState({
         firstName : "",
         lastName: "",
@@ -47,11 +67,20 @@ return (
     <nav className="navbar bg-dark">
         <div className="container-fluid">
             <span className="navbar-brand mb-0 h1 text-white">Welcome! {userData.firstName}</span>
-            <button className="btn btn-dark">Logout</button>
+            <button className="btn btn-dark" onClick={logout}>Logout</button>
         </div>
     </nav>
     <section id="settings" className="settings bg-dark text-light">
-        <img src={userData.photo}></img>
+        <UsernameModal visibility = {usernameModal}
+        hide= {(e)=>setusernameModal(!usernameModal)}
+        id = {id}
+        closeModal = {toCloseUserNameModal}/>
+
+        <PasswordModal
+        visibility={passwordModal}
+        hide = {(e)=>setPasswordModal(!passwordModal)}
+        id={id}
+        closeModal={toClosePasswordModal}/>
             <div className="setting-heading bg-dark text-light">
                 <h1>General Profile Settings</h1>
             </div>
@@ -66,22 +95,23 @@ return (
                     <tr>
                     <td>Username</td>
                     <td>{userData.username}</td>
-                    <td><button className='btn btn-dark'>Edit</button></td>
+                    <td><button className='btn btn-dark' onClick={(e)=>setusernameModal(!usernameModal)}>Edit</button></td>
+                    
                   </tr>
                   <tr>
                     <td>Contact</td>
                     <td>{userData.contact}</td>
-                    <td><button className='btn btn-dark' >Edit</button></td>
+                    <td><button className='btn btn-dark'>Edit</button></td>
                   </tr>
                   <tr>
                     <td>Email</td>
                     <td>{userData.email}</td>
-                    <td><button className='btn btn-dark' >Edit</button></td>
+                    <td><button className='btn btn-dark'>Edit</button></td>
                   </tr>
                   <tr>
                     <td>Password</td>
                     <td>**********</td>
-                    <td><button className='btn btn-dark' >Edit</button></td>
+                    <td><button className='btn btn-dark'onClick = {(e)=>setPasswordModal(!passwordModal)}>Edit</button></td>
                   </tr>
                 </tbody>
               </table>
