@@ -142,7 +142,7 @@ public class UserServiceImpl implements UserService{
         User user = userRepository.findById(userRequest.getId()).get();
 
         if (isUsernameExists(userRequest.getUsername())== true) {
-            return new ResponseEntity<>(new UpdateResponse("Username already exists! Try other"), HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>(new UpdateResponse("Username already exists! Try other"), HttpStatus.BAD_REQUEST);
         } else{
             user.setUsername(userRequest.getUsername());
             userRepository.save(user);
@@ -152,6 +152,8 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public ResponseEntity<UpdateResponse> updatePassword(UserRequest userRequest) {
+
+        System.out.println(userRequest);
         //Check if user exists or not
         User user = userRepository.findById(userRequest.getId()).get();
 
@@ -164,9 +166,11 @@ public class UserServiceImpl implements UserService{
         if(!encoder.matches(userRequest.getPassword(), user.getPassword())){
             return new ResponseEntity<>(new UpdateResponse("Your recent password doesnot match"),HttpStatus.NOT_ACCEPTABLE);
         }
+
         else if (encoder.matches(userRequest.getNewPassword(), user.getPassword())) {
             return new ResponseEntity<>(new UpdateResponse("This is your old password"),HttpStatus.NOT_ACCEPTABLE);
-        }else{
+        }
+        else{
             user.setPassword(newResult);
             userRepository.save(user);
 
