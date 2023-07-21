@@ -1,0 +1,15 @@
+.settings{
+    padding-bottom: 8%;
+    padding-top: 4%;
+    position: relative;
+  }
+  .setting-heading{
+    text-align: center;
+    padding: 5px;
+    margin-bottom: 40px;
+  }
+  .settings .table{
+    width: 70%;
+    margin-left: 10%;
+    color:white;
+  }

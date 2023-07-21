@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
+
 
 import './userlogin.css'
 import UserRegister from "./UserRegister";
 
 const UserLogin = () =>{
-
+    const navigate = useNavigate();
     const [userName,setUserName] = useState("");
     const [password,setPassword] = useState("");
     const [error,setError] = useState({
@@ -34,9 +37,25 @@ const UserLogin = () =>{
         }
 
     }
-    const submit = (e) =>{
+    const submit = async (e) =>{
        validate();
-       
+       try{
+        const userData = {
+            "username": userName,
+            "password": password 
+          };
+          const url = "http://localhost:8080/user/login";
+          await axios.post(url, userData)
+          .then((response) => {
+            console.log(response.status)
+            if(response.status === 200){
+                
+                navigate("/dashboard",{state: {id: response.data.id}})
+            }
+          });
+       }catch(err){
+        console.log(err);
+       }
         
     }
 return <>
@@ -44,6 +63,7 @@ return <>
         visibility={modal}
         hide={()=> setModal(false)}
     />
+    <section className="login-page">
     <div className="admin">
         <h2 className="mb-5">Login Here</h2>
         <div class="mb-3 w-100">
@@ -65,6 +85,8 @@ return <>
         <button type="button" className="btn btn-primary mt-3 w-100"
         onClick={submit}>Login</button>
     </div>
+    </section>
+   
     
 </>
 }

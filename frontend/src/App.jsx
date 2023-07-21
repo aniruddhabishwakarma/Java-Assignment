@@ -1,16 +1,20 @@
+import { BrowserRouter,Routes,Route} from 'react-router-dom'
 import './App.css'
 import UserLogin from './components/UserLogin.jsx'
-import UserRegister from './components/UserRegister'
+import Dashboard from './components/Dashboard'
+
 
 
 function App() {
  
-
   return (
     <>
-    <section className='login-page'>
-    <UserLogin/>
-    </section>
+    <BrowserRouter>
+      <Routes>
+        <Route exact path ="/" element={<UserLogin/>}/>
+        <Route exact path = "/dashboard" element = {<Dashboard/>}/>
+      </Routes>
+    </BrowserRouter>
    
     </>
   )
