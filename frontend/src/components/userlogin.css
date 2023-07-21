@@ -1,0 +1,35 @@
+
+.admin{
+    position: absolute;
+    width: 30%;
+    padding-bottom: 30px;
+    padding:40px;
+    /* margin: 5% auto; */
+    display: flex;
+    flex-direction:column;
+    align-items: start;
+    box-shadow: 10px 10px 10px rgba(2,2,2,0.4);
+    height: auto;
+    background-color: rgba(rgb(232, 169, 169), rgb(146, 235, 146), rgb(136, 136, 142), 0.1);
+    top:8%;
+    left: 30%;
+}
+h2{
+    margin: auto;
+}
+input{
+    border: none;
+
+}
+.error{
+    color:red;
+    font-size: 10px;
+}
+
+.register{
+    border: none;
+    font-size: 13px;
+    margin-left: 55%;
+    color: blue;
+    background-color: none;
+}

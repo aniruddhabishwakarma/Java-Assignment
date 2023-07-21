@@ -1,0 +1,41 @@
+.overlay {
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+  }
+.close-btn{
+    position: absolute;
+    left:97%;
+    background: none;
+    color:white;
+    font-weight: bolder;
+    padding: 10px;
+}
+.register-user{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow-y: scroll;
+    align-items: center;
+    position: absolute;
+    justify-content: flex-start;
+    padding: 40px;
+    background-color: white;
+    text-align: left;
+    height:500px;
+    width: 600px;
+    top:12%;
+    left:28%;
+    
+}
+.error{
+    color:red;
+}
+
+
