@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRequest {
-    private String id;
+public class UserResponse {
     private String firstName;
     private String lastName;
     private String contact;
@@ -16,6 +15,10 @@ public class UserRequest {
     private String dob;
     private String username;
     private String password;
-    private String newPassword;
+    private String photo;
+    private String message;
 
+    public UserResponse(String message){
+        this.message = message;
+    }
 }

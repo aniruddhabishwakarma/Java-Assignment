@@ -1,16 +1,13 @@
 package com.intern.work.Assignment.service;
 
 import com.intern.work.Assignment.entity.User;
-import com.intern.work.Assignment.model.LoginRequest;
-import com.intern.work.Assignment.model.LoginResponse;
-import com.intern.work.Assignment.model.UserRequest;
+import com.intern.work.Assignment.model.*;
 import com.intern.work.Assignment.repository.UserRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,8 +16,6 @@ import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 @Service
@@ -110,7 +105,8 @@ public class UserServiceImpl implements UserService{
                 return new ResponseEntity<>("User registered successfully",HttpStatus.OK);
             }
             catch(FileAlreadyExistsException e){
-                return new ResponseEntity<>("File already exists",HttpStatus.NOT_ACCEPTABLE);
+
+                return new ResponseEntity<>("File already exist",HttpStatus.NOT_ACCEPTABLE);
             }
         }
         }
@@ -131,5 +127,51 @@ public class UserServiceImpl implements UserService{
 
         }
         return null;
+    }
+
+    @Override
+    public UserResponse getUserById(String id) {
+        User user =userRepository.findById(id).get();
+        UserResponse userResponse = new UserResponse();
+        BeanUtils.copyProperties(user,userResponse);
+        return userResponse;
+    }
+
+    @Override
+    public ResponseEntity<UpdateResponse> updateUserName(UserRequest userRequest) {
+        User user = userRepository.findById(userRequest.getId()).get();
+
+        if (isUsernameExists(userRequest.getUsername())== true) {
+            return new ResponseEntity<>(new UpdateResponse("Username already exists! Try other"), HttpStatus.NOT_ACCEPTABLE);
+        } else{
+            user.setUsername(userRequest.getUsername());
+            userRepository.save(user);
+            return new ResponseEntity<>(new UpdateResponse("Successfully Changed"),HttpStatus.OK);
+            }
+    }
+
+    @Override
+    public ResponseEntity<UpdateResponse> updatePassword(UserRequest userRequest) {
+        //Check if user exists or not
+        User user = userRepository.findById(userRequest.getId()).get();
+
+        //Encrypting the password
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16);
+        String result = encoder.encode(userRequest.getPassword());
+        String newResult = encoder.encode(userRequest.getNewPassword());
+
+        //Check if the existing password matches with the user sent password
+        if(!encoder.matches(userRequest.getPassword(), user.getPassword())){
+            return new ResponseEntity<>(new UpdateResponse("Your recent password doesnot match"),HttpStatus.NOT_ACCEPTABLE);
+        }
+        else if (encoder.matches(userRequest.getNewPassword(), user.getPassword())) {
+            return new ResponseEntity<>(new UpdateResponse("This is your old password"),HttpStatus.NOT_ACCEPTABLE);
+        }else{
+            user.setPassword(newResult);
+            userRepository.save(user);
+
+            return new ResponseEntity<>(new UpdateResponse("Password updated successfully"),HttpStatus.OK);
+        }
+
     }
 }
