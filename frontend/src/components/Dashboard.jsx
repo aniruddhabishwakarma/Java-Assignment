@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import UsernameModal from "./Modals/UsernameModal";
 import PasswordModal from "./Modals/PasswordModal";
+import ContactModal from "./Modals/ContactModal";
 
 const Dashboard = () =>{
     const location = useLocation();
@@ -13,6 +14,7 @@ const Dashboard = () =>{
 
     const[usernameModal,setusernameModal] = useState(false);
     const[passwordModal,setPasswordModal] = useState(false);
+    const[contactModal,setContactModal]= useState(false);
 
     const toCloseUserNameModal = (username) =>{
             setusernameModal(false);
@@ -24,6 +26,10 @@ const Dashboard = () =>{
             setPasswordModal(false);
     }
     
+    const toCloseContactModal = (contact)=> {
+        setContactModal(false);
+        setUserData({...userData,contact:contact})
+    }
     const logout = () => {
         navigate("/")
 
@@ -81,6 +87,13 @@ return (
         hide = {(e)=>setPasswordModal(!passwordModal)}
         id={id}
         closeModal={toClosePasswordModal}/>
+
+        <ContactModal
+         visibility={contactModal}
+         hide = {(e)=>setContactModal(!contactModal)}
+         id={id}
+         closeModal={toCloseContactModal}
+        />
             <div className="setting-heading bg-dark text-light">
                 <h1>General Profile Settings</h1>
             </div>
@@ -90,7 +103,7 @@ return (
                     <tr>
                     <td>Full Name</td>
                     <td>{userData.firstName} {userData.lastName}</td>
-                    <td><button className='btn btn-dark'>Edit</button></td>
+                    <td><button className='btn btn-dark'>Fixed</button></td>
                   </tr>
                     <tr>
                     <td>Username</td>
@@ -101,12 +114,12 @@ return (
                   <tr>
                     <td>Contact</td>
                     <td>{userData.contact}</td>
-                    <td><button className='btn btn-dark'>Edit</button></td>
+                    <td><button className='btn btn-dark' onClick={(e)=>setContactModal(!contactModal)}>Edit</button></td>
                   </tr>
                   <tr>
                     <td>Email</td>
                     <td>{userData.email}</td>
-                    <td><button className='btn btn-dark'>Edit</button></td>
+                    <td><button className='btn btn-dark'>Fixed</button></td>
                   </tr>
                   <tr>
                     <td>Password</td>

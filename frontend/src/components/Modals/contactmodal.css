@@ -1,0 +1,39 @@
+.contact-modal{
+    position:absolute;
+    width: 400px;
+    height:300px;
+    background: rgba( 255, 255, 255, 0.25 );
+    box-shadow: 0 8px 32px 0 rgba(160, 160, 162, 0.37);
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    top:22%;
+    left:35%;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.contact-btn{
+    position: absolute;
+    top:1%;
+    left:93%;
+    background-color: transparent;
+    border: none;
+    color: white;
+
+}
+.update-contact{
+    margin-top: -50px;
+}
+.contact-field{
+    padding: 10px;
+    border-radius: 10px;
+    
+}
+.error{
+    color: red;
+    font-size: 15px;
+}
