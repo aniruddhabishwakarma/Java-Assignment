@@ -18,4 +18,6 @@ public interface UserService {
     ResponseEntity<UpdateResponse> updateUserName(UserRequest userRequest);
 
     ResponseEntity<UpdateResponse> updatePassword(UserRequest userRequest);
+
+    ResponseEntity<UpdateResponse> updateContact(UserRequest userRequest);
 }

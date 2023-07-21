@@ -178,4 +178,12 @@ public class UserServiceImpl implements UserService{
         }
 
     }
+
+    @Override
+    public ResponseEntity<UpdateResponse> updateContact(UserRequest userRequest) {
+        User user = userRepository.findById(userRequest.getId()).get();
+        user.setContact(userRequest.getContact());
+        userRepository.save(user);
+        return new ResponseEntity<>(new UpdateResponse("Successfully Changed"),HttpStatus.OK);
+    }
 }
